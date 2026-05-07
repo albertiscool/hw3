@@ -37,6 +37,7 @@
 * **Bonus - Learning Rate Scheduling (學習率排程)**：初期我們希望模型大步探索，後期則需要細微的調整。透過 Lightning 的 `configure_optimizers`，我們整合了 `StepLR`，讓學習率在訓練中後期自動衰減 (Gamma=0.9)，使訓練收斂更為穩定。
 
 ## ✅ 執行狀態確認
-* 程式碼已經成功在 `player` 模式（目標固定、玩家起點隨機）下執行完畢。
-* **Double DQN** 與 **Dueling DQN** 的訓練腳本皆成功收斂，Dueling DQN 在面對動態起點時展現出更低的平均 Loss（約 0.0007）。
-* **PyTorch Lightning** 版本也已經成功透過 `dqn_lightning.py` 執行測試，Gradient Clipping 與 Learning Rate Scheduling 皆正常運作，大幅縮減了 boilerplate code，讓架構變得更專業。
+* **Basic Naive DQN** (`static` 模式)：1000 epochs，最終 Loss ≈ 0.024。
+* **DQN + Experience Replay** (`static` 模式)：1000 epochs，最終 Loss ≈ 0.003，收斂更穩定。
+* **Double DQN** 與 **Dueling DQN** (`player` 模式，玩家起點隨機)：Dueling DQN 平均 Loss 最低（約 0.0007），有效改善 Q 值高估問題。
+* **PyTorch Lightning** (`random` 模式，**最難等級**，所有物件全部隨機擺放)：透過 `dqn_lightning.py` 成功執行，Gradient Clipping (`gradient_clip_val=1.0`) 與 Learning Rate Scheduling (`StepLR`) 皆正常運作，在最複雜的環境中依然保持穩定學習。
